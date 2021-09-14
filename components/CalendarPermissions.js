@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import * as Calendar from "expo-calendar";
 
 const CalendarPermissions = () => {
@@ -31,6 +31,19 @@ const CalendarPermissions = () => {
       <Text>{`Expires: ${calendarPermissions.expires}`}</Text>
       <Text>{`Granted: ${calendarPermissions.granted}`}</Text>
       <Text>{`Status: ${calendarPermissions.status}`}</Text>
+      <Button
+        title={"Request calendar permission"}
+        onPress={async () => {
+          const { canAskAgain, expires, granted, status } =
+            await Calendar.requestCalendarPermissionsAsync();
+          setCalendarPermissions({
+            canAskAgain,
+            expires,
+            granted,
+            status,
+          });
+        }}
+      />
     </View>
   );
 };

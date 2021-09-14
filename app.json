@@ -18,7 +18,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Please grant camera access for demo purposes. No data will be processed.",
-        "NSPhotoLibraryUsageDescription": "Please grant photo library access for demo purposes. No data will be processed."
+        "NSPhotoLibraryUsageDescription": "Please grant photo library access for demo purposes. No data will be processed.",
+        "NSCalendarsUsageDescription": "Please grant calendar access for demo purposes. No data will be processed."
       }
     },
     "android": {
