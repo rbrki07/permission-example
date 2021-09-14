@@ -20,7 +20,9 @@
         "NSCameraUsageDescription": "Please grant camera access for demo purposes. No data will be processed.",
         "NSPhotoLibraryUsageDescription": "Please grant photo library access for demo purposes. No data will be processed.",
         "NSCalendarsUsageDescription": "Please grant calendar access for demo purposes. No data will be processed.",
-        "NSContactsUsageDescription": "Please grant contacts access for demo purposes. No data will be processed."
+        "NSContactsUsageDescription": "Please grant contacts access for demo purposes. No data will be processed.",
+        "NSLocationWhenInUseUsageDescription": "Please grant location access when in use for demo purposes. No data will be processed.",
+        "NSLocationAlwaysUsageDescription": "Please grant location access always for demo purposes. No data will be processed."
       }
     },
     "android": {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import * as Location from "expo-location";
 
 const LocationPermissions = () => {
@@ -76,6 +76,32 @@ const LocationPermissions = () => {
           <Text>{`iOS scope: ${locationForegroundPermissions.ios?.scope}`}</Text>
         )}
         <Text>{`Status: ${locationForegroundPermissions.status}`}</Text>
+        <Button
+          title={"Request location foreground permission"}
+          onPress={async () => {
+            if (Platform.OS === "android") {
+              const { android, canAskAgain, expires, granted, status } =
+                await Location.requestForegroundPermissionsAsync();
+              setLocationForegroundPermissions({
+                android,
+                canAskAgain,
+                expires,
+                granted,
+                status,
+              });
+            } else {
+              const { canAskAgain, expires, granted, ios, status } =
+                await Location.requestForegroundPermissionsAsync();
+              setLocationForegroundPermissions({
+                canAskAgain,
+                expires,
+                granted,
+                ios,
+                status,
+              });
+            }
+          }}
+        />
       </View>
       <View style={styles.container}>
         <Text style={styles.title}>Location Background Permission</Text>
@@ -83,6 +109,19 @@ const LocationPermissions = () => {
         <Text>{`Expires: ${locationBackgroundPermissions.expires}`}</Text>
         <Text>{`Granted: ${locationBackgroundPermissions.granted}`}</Text>
         <Text>{`Status: ${locationBackgroundPermissions.status}`}</Text>
+        <Button
+          title={"Request location background permission"}
+          onPress={async () => {
+            const { canAskAgain, expires, granted, status } =
+              await Location.requestBackgroundPermissionsAsync();
+            setLocationBackgroundPermissions({
+              canAskAgain,
+              expires,
+              granted,
+              status,
+            });
+          }}
+        />
       </View>
     </>
   );
