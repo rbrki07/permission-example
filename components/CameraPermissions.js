@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { Camera } from "expo-camera";
 
 const CameraPermissions = () => {
@@ -13,7 +13,7 @@ const CameraPermissions = () => {
   useEffect(() => {
     const getCameraPermissions = async () => {
       const { canAskAgain, expires, granted, status } =
-        await Camera.getPermissionsAsync();
+        await Camera.getCameraPermissionsAsync();
       setCameraPermissions({
         canAskAgain,
         expires,
@@ -31,6 +31,19 @@ const CameraPermissions = () => {
       <Text>{`Expires: ${cameraPermissions.expires}`}</Text>
       <Text>{`Granted: ${cameraPermissions.granted}`}</Text>
       <Text>{`Status: ${cameraPermissions.status}`}</Text>
+      <Button
+        title={"Request camera permission"}
+        onPress={async () => {
+          const { canAskAgain, expires, granted, status } =
+            await Camera.requestCameraPermissionsAsync();
+          setCameraPermissions({
+            canAskAgain,
+            expires,
+            granted,
+            status,
+          });
+        }}
+      />
     </View>
   );
 };
