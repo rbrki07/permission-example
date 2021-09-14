@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import * as Contacts from "expo-contacts";
 
 const ContactsPermissions = () => {
@@ -31,6 +31,19 @@ const ContactsPermissions = () => {
       <Text>{`Expires: ${contactsPermissions.expires}`}</Text>
       <Text>{`Granted: ${contactsPermissions.granted}`}</Text>
       <Text>{`Status: ${contactsPermissions.status}`}</Text>
+      <Button
+        title={"Request contacts permission"}
+        onPress={async () => {
+          const { canAskAgain, expires, granted, status } =
+            await Contacts.requestPermissionsAsync();
+          setContactsPermissions({
+            canAskAgain,
+            expires,
+            granted,
+            status,
+          });
+        }}
+      />
     </View>
   );
 };
