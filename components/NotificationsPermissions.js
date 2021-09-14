@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Button, Platform, StyleSheet, Text, View } from "react-native";
 import * as Notifications from "expo-notifications";
 
 const NotificationsPermissions = () => {
@@ -84,6 +84,39 @@ const NotificationsPermissions = () => {
         </>
       )}
       <Text>{`Status: ${notificationsPermissions.status}`}</Text>
+      <Button
+        title={"Request notifications permission"}
+        onPress={async () => {
+          if (Platform.OS === "android") {
+            const { android, canAskAgain, expires, granted, status } =
+              await Notifications.requestPermissionsAsync();
+            setNotificationsPermissions({
+              android,
+              canAskAgain,
+              expires,
+              granted,
+              status,
+            });
+          } else {
+            const { canAskAgain, expires, granted, ios, status } =
+              await Notifications.requestPermissionsAsync({
+                ios: {
+                  allowAlert: true,
+                  allowBadge: true,
+                  allowSound: true,
+                  allowDisplayInCarPlay: true,
+                },
+              });
+            setNotificationsPermissions({
+              canAskAgain,
+              expires,
+              granted,
+              ios,
+              status,
+            });
+          }
+        }}
+      />
     </View>
   );
 };
