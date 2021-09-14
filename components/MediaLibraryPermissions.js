@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 
 const MediaLibraryPermissions = () => {
@@ -34,6 +34,20 @@ const MediaLibraryPermissions = () => {
       <Text>{`Expires: ${mediaLibraryPermissions.expires}`}</Text>
       <Text>{`Granted: ${mediaLibraryPermissions.granted}`}</Text>
       <Text>{`Status: ${mediaLibraryPermissions.status}`}</Text>
+      <Button
+        title={"Request media library permission"}
+        onPress={async () => {
+          const { accessPrivileges, canAskAgain, expires, granted, status } =
+            await MediaLibrary.requestPermissionsAsync();
+          setMediaLibraryPermissions({
+            accessPrivileges,
+            canAskAgain,
+            expires,
+            granted,
+            status,
+          });
+        }}
+      />
     </View>
   );
 };
