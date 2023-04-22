@@ -1,48 +1,21 @@
-import React, { useEffect, useState } from "react";
+// @ts-check
+import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Camera } from "expo-camera";
 
 const CameraPermissions = () => {
-  const [cameraPermissions, setCameraPermissions] = useState({
-    canAskAgain: undefined,
-    expires: undefined,
-    granted: undefined,
-    status: undefined,
-  });
-
-  useEffect(() => {
-    const getCameraPermissions = async () => {
-      const { canAskAgain, expires, granted, status } =
-        await Camera.getCameraPermissionsAsync();
-      setCameraPermissions({
-        canAskAgain,
-        expires,
-        granted,
-        status,
-      });
-    };
-    getCameraPermissions();
-  }, []);
+  const [cameraPermissions, requestCameraPermission] = Camera.useCameraPermissions();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Camera Permission</Text>
-      <Text>{`Can ask again: ${cameraPermissions.canAskAgain}`}</Text>
-      <Text>{`Expires: ${cameraPermissions.expires}`}</Text>
-      <Text>{`Granted: ${cameraPermissions.granted}`}</Text>
-      <Text>{`Status: ${cameraPermissions.status}`}</Text>
+      <Text>{`Can ask again: ${cameraPermissions?.canAskAgain}`}</Text>
+      <Text>{`Expires: ${cameraPermissions?.expires}`}</Text>
+      <Text>{`Granted: ${cameraPermissions?.granted}`}</Text>
+      <Text>{`Status: ${cameraPermissions?.status}`}</Text>
       <Button
         title={"Request camera permission"}
-        onPress={async () => {
-          const { canAskAgain, expires, granted, status } =
-            await Camera.requestCameraPermissionsAsync();
-          setCameraPermissions({
-            canAskAgain,
-            expires,
-            granted,
-            status,
-          });
-        }}
+        onPress={requestCameraPermission}
       />
     </View>
   );
